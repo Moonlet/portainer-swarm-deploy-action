@@ -26,9 +26,9 @@ runs:
     - run: deploy.sh
       shell: bash
       env:
-        PORTAINER_ENDPOINT: ${{ inputs.who-to-greet }}
-        PORTAINER_API_KEY: ptr_JQ5+WKNrNT6MoexAMssldxpOhhpuIwhDlh79BRqws8U=
-        ENDPOINT: tiexo-swarm-dev
-        STACK_NAME: browserless3
-        STACK_FILE: browserless.yml
-        STACK_ENV_FILE: .env
+        PORTAINER_ENDPOINT: ${{ inputs.portainer_url }}
+        PORTAINER_API_KEY: ${{ inputs.portainer_access_token }}
+        ENDPOINT: ${{ inputs.endpoint }}
+        STACK_NAME: ${{ inputs.stack_name }}
+        STACK_FILE: ${{ inputs.compose_file }}
+        STACK_ENV_FILE: ${{ inputs.env_file }}
