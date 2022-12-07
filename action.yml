@@ -1,0 +1,41 @@
+name: 'Portainer Swarm deploy'
+description: 'Deploy a stack in Docker Swarm via Portainer'
+inputs:
+  portainer_url:  # id of input
+    description: 'URL of the portainer instance'
+    required: true
+  portainer_access_token: 
+    description: 'Access token used to login to portainer API'
+    required: true
+  endpoint:
+    description: 'Endpoint(Environment) name from portainer'
+    required: true
+  stack_name: 
+    description: 'Name of the stack'
+    required: true
+  compose_file: 
+    description: 'Compose yml file'
+    required: true
+  env_file:
+    description: 'ENV vars file'
+    required: false
+  
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - id: random-number-generator
+      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+      shell: bash
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+    - run: deploy.sh
+      shell: bash
+      env:
+        PORTAINER_ENDPOINT: ${{ inputs.who-to-greet }}
+        PORTAINER_API_KEY: ptr_JQ5+WKNrNT6MoexAMssldxpOhhpuIwhDlh79BRqws8U=
+        ENDPOINT: tiexo-swarm-dev
+        STACK_NAME: browserless3
+        STACK_FILE: browserless.yml
+        STACK_ENV_FILE: .env
