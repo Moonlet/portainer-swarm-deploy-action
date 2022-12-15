@@ -38,7 +38,7 @@ function get_endpoint_id() {
 # $1 - endpoint id
 # $2 - stack name
 function get_stack_id() {
-    echo $(api_call "/api/stacks?filter={'EndpointID':7}" | jq ".[] | select(.Name == \"$STACK_NAME\") | .Id")
+    echo $(api_call "/api/stacks?filter={'EndpointID':$1}" | jq ".[] | select(.Name == \"$2\") | .Id")
 }
 
 # $1 - endpoint id
