@@ -89,7 +89,7 @@ echo "STACK_ID=$STACK_ID";
 echo ""
 
 # load stack file
-STACK_FILE_STRING=$(node -e "console.log(JSON.stringify(process.argv[1]))" "$(cat $STACK_FILE)")
+STACK_FILE_STRING=$(node -e "fs=require('fs');console.log(JSON.stringify(fs.readFileSync($STACK_FILE).toString()))")
 echo "STACK_FILE_STRING=$STACK_FILE_STRING"
 echo ""
 echo ""
@@ -106,7 +106,9 @@ then
     echo "It seems $STACK_NAME stack was not deployed yet on $ENDPOINT cluster. Creating it...";
 
     PAYLOAD='{"env": '$(getEnvJson $STACK_ENV_FILE)',"fromAppTemplate":false, "name": "'$STACK_NAME'","swarmID": '$SWARM_ID', "stackFileContent": '${STACK_FILE_STRING}'}'
-    # echo "$PAYLOAD";
+    echo "=== PAYLOAD ===";
+    echo $PAYLOAD | jq
+    echo "===============";
     api_call_json_body POST "/api/stacks?type=1&method=string&endpointId=$ENDPOINT_ID" "$PAYLOAD" | jq
 
 else
@@ -114,7 +116,9 @@ else
     echo "Updating $STACK_NAME stack from $ENDPOINT cluster..."
 
     PAYLOAD='{"env": '$(getEnvJson $STACK_ENV_FILE)',"prune": true,"pullImage": true,"stackFileContent":'${STACK_FILE_STRING}'}'
-    # echo "$PAYLOAD";
+    echo "=== PAYLOAD ===";
+    echo $PAYLOAD | jq
+    echo "===============";
     api_call_json_body PUT "/api/stacks/$STACK_ID?endpointId=$ENDPOINT_ID" "$PAYLOAD" | jq
 fi  
 
