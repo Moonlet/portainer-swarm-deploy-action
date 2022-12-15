@@ -89,7 +89,7 @@ echo "STACK_ID=$STACK_ID";
 echo ""
 
 # load stack file
-STACK_FILE_STRING=$(node -e "fs=require('fs');console.log(JSON.stringify(fs.readFileSync($STACK_FILE).toString()))")
+STACK_FILE_STRING=$(node -e "fs=require('fs');console.log(JSON.stringify(fs.readFileSync('$STACK_FILE').toString()))")
 echo "STACK_FILE_STRING=$STACK_FILE_STRING"
 echo ""
 echo ""
