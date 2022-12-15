@@ -1,12 +1,12 @@
-# General vars
-PORTAINER_ENDPOINT=https://portainer.moonlet.cloud
-PORTAINER_API_KEY=ptr_ZGO//7ZRasBH3sGQ1iRfowd5C3MMhuQYVcwEOSLDLvI=
+# # General vars
+# PORTAINER_ENDPOINT=https://portainer.moonlet.cloud
+# PORTAINER_API_KEY=ptr_ZGO//7ZRasBH3sGQ1iRfowd5C3MMhuQYVcwEOSLDLvI=
 
-# Deployment vars
-ENDPOINT=tiexo-swarm-dev
-STACK_NAME=browserless
-STACK_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/browserless.yml
-STACK_ENV_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/prod.env
+# # Deployment vars
+# ENDPOINT=tiexo-swarm-dev
+# STACK_NAME=browserless
+# STACK_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/browserless.yml
+# STACK_ENV_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/prod.env
 
 #computed vars 
 ENDPOINT_ID=
