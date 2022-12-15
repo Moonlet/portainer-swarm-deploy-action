@@ -1,12 +1,12 @@
 # General vars
-# PORTAINER_ENDPOINT=
-# PORTAINER_API_KEY=
+PORTAINER_ENDPOINT=https://portainer.moonlet.cloud
+PORTAINER_API_KEY=ptr_ZGO//7ZRasBH3sGQ1iRfowd5C3MMhuQYVcwEOSLDLvI=
 
 # Deployment vars
-# ENDPOINT=
-# STACK_NAME=
-# STACK_FILE=
-# STACK_ENV_FILE=
+ENDPOINT=tiexo-swarm-dev
+STACK_NAME=browserless
+STACK_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/browserless.yml
+STACK_ENV_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/prod.env
 
 #computed vars 
 ENDPOINT_ID=
@@ -35,10 +35,11 @@ function get_endpoint_id() {
     echo $(api_call "/api/endpoints?name=$1" | jq .[0].Id)
 }
 
-# $1 - endpoint id
+# $1 - swarm id
 # $2 - stack name
 function get_stack_id() {
-    echo $(api_call "/api/stacks?filter={'EndpointID':$1}" | jq ".[] | select(.Name == \"$2\") | .Id")
+    #echo "getting stack $1 $2"
+    echo $(api_call "/api/stacks" | jq ".[] | select(.Name == \"$2\" and .SwarmId == $1) | .Id")
 }
 
 # $1 - endpoint id
@@ -68,11 +69,11 @@ function getEnvJson() {
 # find endpoint ID
 ENDPOINT_ID=$(get_endpoint_id $ENDPOINT)
 
-# find stack id
-STACK_ID=$(get_stack_id $ENDPOINT_ID $STACK_NAME)
-
 # find swarm ID
 SWARM_ID=$(get_swarm_id $ENDPOINT_ID);
+
+# find stack id
+STACK_ID=$(get_stack_id $SWARM_ID $STACK_NAME)
 
 # Display input vars
 echo "PORTAINER_ENDPOINT=$PORTAINER_ENDPOINT"
@@ -105,20 +106,24 @@ then
     # create stack
     echo "It seems $STACK_NAME stack was not deployed yet on $ENDPOINT cluster. Creating it...";
 
+    URL="/api/stacks?type=1&method=string&endpointId=$ENDPOINT_ID"
     PAYLOAD='{"env": '$(getEnvJson $STACK_ENV_FILE)',"fromAppTemplate":false, "name": "'$STACK_NAME'","swarmID": '$SWARM_ID', "stackFileContent": '${STACK_FILE_STRING}'}'
     echo "=== PAYLOAD ===";
+    echo "POST $URL"
     echo $PAYLOAD | jq
     echo "===============";
-    api_call_json_body POST "/api/stacks?type=1&method=string&endpointId=$ENDPOINT_ID" "$PAYLOAD" | jq
+    api_call_json_body POST $URL "$PAYLOAD" | jq
 
 else
     # update stack
     echo "Updating $STACK_NAME stack from $ENDPOINT cluster..."
 
+    URL="/api/stacks/$STACK_ID?endpointId=$ENDPOINT_ID"
     PAYLOAD='{"env": '$(getEnvJson $STACK_ENV_FILE)',"prune": true,"pullImage": true,"stackFileContent":'${STACK_FILE_STRING}'}'
     echo "=== PAYLOAD ===";
+    echo "PUT $URL"
     echo $PAYLOAD | jq
     echo "===============";
-    api_call_json_body PUT "/api/stacks/$STACK_ID?endpointId=$ENDPOINT_ID" "$PAYLOAD" | jq
+    api_call_json_body PUT $URL "$PAYLOAD" | jq
 fi  
 
