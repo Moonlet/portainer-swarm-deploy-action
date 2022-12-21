@@ -94,6 +94,8 @@ STACK_FILE_STRING=$(node -e "fs=require('fs');console.log(JSON.stringify(fs.read
 echo "STACK_FILE_STRING=$STACK_FILE_STRING"
 echo ""
 echo ""
+echo "cat $STACK_ENV_FILE"
+cat $STACK_ENV_FILE
 echo "======================================="
 echo ""
 echo ""
