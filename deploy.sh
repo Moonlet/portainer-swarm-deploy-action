@@ -1,3 +1,5 @@
+set -x
+
 # # General vars
 # PORTAINER_ENDPOINT=https://portainer.moonlet.cloud
 # PORTAINER_API_KEY=ptr_ZGO//7ZRasBH3sGQ1iRfowd5C3MMhuQYVcwEOSLDLvI=
