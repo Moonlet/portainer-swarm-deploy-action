@@ -128,4 +128,3 @@ else
     echo "===============";
     api_call_json_body PUT $URL "$PAYLOAD" | jq
 fi  
-
