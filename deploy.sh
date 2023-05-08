@@ -18,7 +18,7 @@ SWARM_ID=
 ### $1 - api path
 function api_call() {
     local RES=$(curl -s --request GET --url ${PORTAINER_ENDPOINT}${1} --header "x-api-key: $PORTAINER_API_KEY")
-#     echo $RES
+    echo $RES
 }
 
 # $1 - method (POST/GET/PUT...)
@@ -27,7 +27,7 @@ function api_call() {
 function api_call_json_body() {
     # echo "$1 $2 $3"
     local RES=$(curl -s --request $1 --url ${PORTAINER_ENDPOINT}${2} --header "x-api-key: $PORTAINER_API_KEY" --header "content-type: application/json" --data "$3")
-#     echo $RES
+    echo $RES
 }
 
 # $1 - endpoint name
