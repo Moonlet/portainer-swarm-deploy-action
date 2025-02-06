@@ -2,12 +2,6 @@ set -o errexit
 # set -o nounset
 set -o pipefail
 
-# # Deployment vars
-# ENDPOINT=tiexo-swarm-dev
-# STACK_NAME=browserless
-# STACK_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/browserless.yml
-# STACK_ENV_FILE=/Users/krisboit/Work/research/tiexo-marketplace/deployments/browserless-chrome/prod.env
-
 #computed vars 
 ENDPOINT_ID=
 STACK_ID=
