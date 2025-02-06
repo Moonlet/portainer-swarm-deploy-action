@@ -2,10 +2,6 @@ set -o errexit
 # set -o nounset
 set -o pipefail
 
-# # General vars
-# PORTAINER_ENDPOINT=https://portainer.moonlet.cloud
-# PORTAINER_API_KEY=ptr_ZGO//7ZRasBH3sGQ1iRfowd5C3MMhuQYVcwEOSLDLvI=
-
 # # Deployment vars
 # ENDPOINT=tiexo-swarm-dev
 # STACK_NAME=browserless
