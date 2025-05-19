@@ -1,4 +1,4 @@
-# Portainer swarmd eploy action
+# Portainer swarm deploy action
 
 Config example:
 ```yml
