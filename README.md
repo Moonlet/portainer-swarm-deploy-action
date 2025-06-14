@@ -3,7 +3,7 @@
 Config example:
 ```yml
 - name: Deploy in swarm
-  uses: Moonlet/portainer-swarm-deploy-action@main
+  uses: MoonletLabs/portainer-swarm-deploy-action@main
   with:
     portainer_url: ${{ env.PORTAINER_URL }}
     portainer_access_token: ${{ secrets.PORTAINER_ACCESS_TOKEN }}
